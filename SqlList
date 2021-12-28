@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <?php
+  //Example 4-3
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "اسم الداتا ";
+
+  try {
+    // connect to MYSQL Database using PDO
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // set the PDO error mode to exception
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    //select query
+    $sql = 'SELECT * FROM اسم الجدول order by id';
+    $query = $pdo->query($sql);
+
+    // get all products as associative array
+    $اسم الجدول = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($اسم الجدول) {
+      echo '<h2>عنوان:</h2>';
+      // show the products
+      foreach ($اسم الجدول as $متغير) {
+        echo $متغير['id'] . '<br>';
+        echo $متغير['name'] . '<br>';
+        echo $متغير['description'] . '<br>';
+        echo $متغير['price'] . '<br>';
+        echo '-----------------------------<br>';
+      }
+    }
+  } catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+  }
+  $pdo = null; //close PDO connection 
+  ?>
+</body>
+
+</html>
