@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<style>
+   table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 40%;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+
+        }
+
+        th {
+            border: 1px solid #ddd;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
+
+        }
+  </style>
+<body>
+  <?php
+  //Example 4-3
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "اسم الداتا";
+
+  try {
+    // connect to MYSQL Database using PDO
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // set the PDO error mode to exception
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    //select query
+    $sql = 'SELECT * FROM اسم الجدول ';
+    $query = $pdo->query($sql);
+
+    // get all products as associative array
+    $products = $query->fetchAll(PDO::FETCH_ASSOC);
+    ?>
+
+    <table style="border: 1px solid #ddd;">
+    <tr> 
+          <th>id</th>
+          <th>name</th>
+          <th>description</th>
+          <th>price</th>
+    
+    </tr>
+         <?php
+    
+    if ($اسم الجدول) {
+      echo '<h2>List of Products:</h2>';
+
+      // show the products
+      foreach ($اسم الجدول as $product) {
+     
+        ?>
+        <tr>
+<?php
+    echo '<td>' . $product['id']  .'</td>'.'<br>';
+
+    echo '<td>'. $product['name']  .'</td>'.'<br>';
+
+    echo '<td>'. $product['description'].'</td>'.'<br>';
+
+    echo '<td>'. $product['price'] .'</td>'.'<br>';
+    echo'</tr>';
+
+    }
+    }
+    ?> </table>
+        <?php
+    
+  } catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+  }
+  $pdo = null; //close PDO connection 
+  ?>
+</body>
+
+</html>
